@@ -1,5 +1,6 @@
 import pygame
 import pygame.midi
+# may rely on pyfluidsynth (simpleaudio, soundfile, pydub, pypianoroll)
 
 
 if __name__ == "__main__":
