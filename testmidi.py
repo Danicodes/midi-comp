@@ -241,19 +241,26 @@ def boysALiar():
         dur1 = [Duration.eighth] * 4
         dur1.append(Duration.quarter + Duration.eighth + Duration.eighth)
 
-        if alt:
+        if alt == 1:
             run1 = liststepup(run1)
             run1.pop()
             run1.append(liststepup([Chords.stepdown(Chords.f4, 1), Chords.stepdown(Chords.a4, 1), Chords.c4]))
+        elif alt == 2:
+            run1 = [Chords.stepup(Chords.d4, 1), Chords.f4, Chords.e4, Chords.f4, Chords.f4, Chords.f4]
 
         run2 = [Chords.stepdown(Chords.a4, 1), Chords.stepdown(Chords.a4, 1), Chords.c4, Chords.e4, Chords.d4]
-        if alt:
+        if alt == 1:
             run2 = liststepup(run2)
             run2.pop()
             run2.append(liststepup([Chords.stepdown(Chords.f4, 1), Chords.stepdown(Chords.a4, 1), Chords.d4]))
+        elif alt == 2:
+            run2 = [Chords.f4, Chords.g4, Chords.e4, Chords.e4, Chords.e4]
+            run3 = [Chords.f4, Chords.e4, Chords.f4, Chords.f4, Chords.f4]
+            run4 = [Chords.f4, Chords.g4, Chords.e4, Chords.e4, Chords.e4]
 
         run4_2 = [Chords.f4, Chords.g4, [Chords.c4, Chords.a4], Chords.g4, Chords.f4, Chords.e4]
-        if alt:
+
+        if alt == 1:
             run4_2 = [Chords.f4, Chords.g4, 0, Chords.g4, Chords.f4, Chords.e4] 
             run4_2 = liststepup(run4_2)
             run4_2[2] = liststepup([Chords.c4, Chords.a4])
@@ -261,25 +268,47 @@ def boysALiar():
         dur2 = [Duration.eighth] * 6
 
         runs = [run1, run2, run1, run4_2]
-        for i,run in enumerate(runs):
-            if i == 3:
-                dur1.pop()
-                dur1.append(Duration.quarter)
-                dur = dur2
-            dur = dur1
-            volume=piano
-            for d, note in zip(dur, run): 
-                if type(note) == list:
-                    for n in note:
-                        mw.write_note(1, n, time, duration=d, volume=volume)
-                        mw.write_note(1, n, time, duration=d, volume=volume)
-                else:
-                    mw.write_note(1, note, time, duration=d, volume=volume)
-                time += d
-                volume += 5
+        if alt == 2:
+            runs = [run1, run2, run3, run4]
+            dur = [Duration.eighth] * 3
+            dur.append(Duration.eighth + Duration.eighth)
+            dur.append(Duration.quarter)
+            dur.append(Duration.eighth + Duration.eighth)
+            for i, run in enumerate(runs):
+                if i > 0:
+                    dur = dur[1:]
+                volume = piano
+                for d, note in zip(dur, run): 
+                    if type(note) == list:
+                        for n in note:
+                            mw.write_note(1, n, time, duration=d, volume=volume)
+                            mw.write_note(1, n, time, duration=d, volume=volume)
+                    else:
+                        mw.write_note(1, note, time, duration=d, volume=volume)
+                    time += d
+                    volume += 5
+
+                
+        else:
+            for i,run in enumerate(runs):
+                if i == 3:
+                    dur1.pop()
+                    dur1.append(Duration.quarter)
+                    dur = dur2
+                dur = dur1
+                volume=piano
+                for d, note in zip(dur, run): 
+                    if type(note) == list:
+                        for n in note:
+                            mw.write_note(1, n, time, duration=d, volume=volume)
+                            mw.write_note(1, n, time, duration=d, volume=volume)
+                    else:
+                        mw.write_note(1, note, time, duration=d, volume=volume)
+                    time += d
+                    volume += 5
 
         # LH
-        if alt:
+        if alt == 1:
             run1_1 = [Chords.stepdown(Chords.bflat4, 1), Chords.f4, Chords.stepup(Chords.c4, 1), Chords.f4]
             run1_2 = [Chords.stepdown(Chords.bflat4, 1), Chords.f4, Chords.stepup(Chords.d4, 1), Chords.f4]
             run2_1 = [Chords.c4, Chords.g4, Chords.stepup(Chords.c4, 1), Chords.g4]
@@ -289,6 +318,18 @@ def boysALiar():
             run4_1 = [Chords.f4, Chords.a4, Chords.stepup(Chords.c4,1), Chords.a4]
             run4_2 = [Chords.c4, Chords.g4, Chords.stepup(Chords.c4,1), Chords.g4]
 
+            runs = [run1_1, run1_2, run2_1, run2_2, run3_1, run3_2, run4_1, run4_2]
+            
+        elif alt == 2:
+            run1_1 = [Chords.stepdown(Chords.bflat4, 1), Chords.f4, Chords.stepup(Chords.c4, 1), Chords.f4]
+            run1_2 = [Chords.stepdown(Chords.bflat4, 1), Chords.f4, Chords.stepup(Chords.d4, 1), Chords.f4]
+            run2_1 = [Chords.c4, Chords.g4, Chords.stepup(Chords.c4, 1), Chords.g4]
+            run2_2 = [Chords.c4, Chords.g4, Chords.stepup(Chords.d4, 1), Chords.g4]
+            run3_1 = [Chords.d4, Chords.a4, Chords.stepup(Chords.c4, 1), Chords.a4]
+            run3_2 = [Chords.d4, Chords.a4, Chords.stepup(Chords.d4, 1), Chords.a4]
+            run4_1 = [Chords.f4, Chords.a4, Chords.stepup(Chords.c4,1), Chords.a4]
+            run4_2 = [Chords.c4, Chords.g4, Chords.stepup(Chords.c4,1), Chords.g4]
+         
             runs = [run1_1, run1_2, run2_1, run2_2, run3_1, run3_2, run4_1, run4_2]
         else:
             run1 = [Chords.stepdown(Chords.bflat4, 1), Chords.f4, Chords.bflat4, Chords.f4]
@@ -317,7 +358,8 @@ def boysALiar():
     t = verse(t, melody_aug=True)
     t = verse(t, melody_aug=True, alt=True)
     t = chorus(t)
-    t = chorus(t, alt=True)
+    t = chorus(t, alt=1)
+    t = chorus(t, alt=2)
         
     mw.write_out("boysaliar.mid") 
 
